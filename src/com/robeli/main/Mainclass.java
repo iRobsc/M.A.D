@@ -21,8 +21,8 @@ public class Mainclass extends SimpleApplication {
 		al.setColor(ColorRGBA.White.mult(5.3f));
 		rootNode.addLight(al);
 		
-		Terrain terrain = new Terrain();
-		terrain.createTerrain(assetManager, rootNode);
+		Terrain terrain = new Terrain(assetManager);
+		terrain.createTerrain(rootNode);
 	}
 	
 	@Override
