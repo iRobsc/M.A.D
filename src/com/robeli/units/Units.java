@@ -15,9 +15,9 @@ public class Units {
 	private Spatial unitModel;
 	private Texture unitTexture;
 	
-	public void create(AssetManager aM, Node rootNode, Node unitNode, Tile tile, float gridHeight) {/* polymorphic method*/}
+	public void create(AssetManager aM, Node rootNode, Node unitNode, Tile tile, float gridHeight, boolean side) {/* polymorphic method*/}
 	
-	protected void createUnit(String texture, String model, AssetManager aM, Node unitNode, Tile tile, float scaling, float gridHeight){
+	protected void createUnit(String texture, String model, AssetManager aM, Node unitNode, Tile tile, float scaling, float gridHeight, boolean side){
 		try{
 		unitModel = aM.loadModel(model);
 		unitTexture = aM.loadTexture(texture);
@@ -27,7 +27,7 @@ public class Units {
 		
 		unitModel.setLocalTranslation(tile.getX() + Tile.width/2, gridHeight , tile.getZ() - Tile.length/2);
 		unitModel.setLocalScale(scaling);
-		unitModel.rotate(0, +90*FastMath.DEG_TO_RAD, 0);
+		unitModel.rotate(0, (side?+90*FastMath.DEG_TO_RAD:-90*FastMath.DEG_TO_RAD), 0);
 		
 		unitNode.attachChild(unitModel);
 		}catch(Exception e){

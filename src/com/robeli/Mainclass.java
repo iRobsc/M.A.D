@@ -4,21 +4,15 @@ import com.jme3.app.SimpleApplication;
 import com.jme3.light.AmbientLight;
 import com.jme3.math.ColorRGBA;
 import com.jme3.renderer.RenderManager;
-import com.jme3.scene.Node;
 import com.robeli.terrain.Grid;
 import com.robeli.terrain.Terrain;
 import com.robeli.terrain.Tile;
-import com.robeli.units.Testunit;
-import com.robeli.units.Units;
+import com.robeli.units.Player;
 
 public class Mainclass extends SimpleApplication {
 
-	private Node unitNode = new Node();
-	private int gridXlength = 15;
-	private int gridZlength = 10;
+	private int gridXlength = 15, gridZlength = 10;
 	private float gridHeight = 0.5f;
-	private int unitsAmount = 20;
-	private Units[][] units = new Units[gridZlength][gridXlength];
 	
 	public static void main(String[] args) {
 		Mainclass app = new Mainclass();
@@ -33,11 +27,12 @@ public class Mainclass extends SimpleApplication {
 		
 		Grid grid = new Grid(gridXlength,gridZlength,gridHeight, rootNode, assetManager);
 		grid.createGrid((Terrain.planeLength/2)-(gridXlength*Tile.width-Tile.width)/2, (Terrain.planeLength/2)-(gridZlength*Tile.length-Tile.length)/2);
-
-		for(int i = 0; i < (unitsAmount > (gridXlength*gridZlength)?(gridXlength*gridZlength): unitsAmount); i++){
-			units[i-((int)(i/gridZlength)*gridZlength)][(int)(i/gridZlength)] = new Testunit();
-			units[i-((int)(i/gridZlength)*gridZlength)][(int)(i/gridZlength)].create(assetManager, rootNode, unitNode, grid.getGrid((int)(i/gridZlength),i-(int)(i/gridZlength)*gridZlength), gridHeight);
-		}
+		
+		Player player1 = new Player(true);
+		player1.createUnits(gridXlength, gridZlength, grid, gridHeight, assetManager, rootNode);
+		
+		Player player2 = new Player(false);
+		player2.createUnits(gridXlength, gridZlength, grid, gridHeight, assetManager, rootNode);
 		
 		AmbientLight al = new AmbientLight();
 		al.setColor(ColorRGBA.White.mult(5f));
@@ -57,6 +52,5 @@ public class Mainclass extends SimpleApplication {
 	
 	@Override
 	public void simpleRender(RenderManager rm){
-		
 	}
 }

@@ -9,13 +9,17 @@ import com.jme3.scene.Geometry;
 import com.jme3.scene.Node;
 import com.jme3.scene.shape.Quad;
 import com.jme3.texture.Texture;
+import com.robeli.units.Units;
 
 import org.lwjgl.opengl.*;
 
 public class Tile {
+	
 	private float x, z;
-	public static float width = 1.5f;
-	public static float length = 1.5f;
+	
+	public static float width = 1.5f, length = 1.5f;
+	public Units currentUnit = null;
+	
 	public Texture texture;
 	private static AssetManager assetManager;
 	private static Node rootNode;

@@ -8,9 +8,9 @@ public class Testunit extends Units {
 	public float scaling = 0.4f;
 	
 	@Override
-	public void create(AssetManager aM, Node rootNode, Node unitNode, Tile tile, float gridHeight){
+	public void create(AssetManager aM, Node rootNode, Node unitNode, Tile tile, float gridHeight, boolean side){
 		try{
-		createUnit("/Textures/metal.png", "/Models/mecha.obj", aM, unitNode, tile, scaling, gridHeight);
+		createUnit("/Textures/metal.png", "/Models/mecha.obj", aM, unitNode, tile, scaling, gridHeight, side);
 		rootNode.attachChild(unitNode);
 		}
 		catch(Exception e){
