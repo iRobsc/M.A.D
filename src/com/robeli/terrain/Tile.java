@@ -21,6 +21,7 @@ public class Tile {
 	public Units currentUnit = null;
 	
 	public Texture texture;
+	public static String tileTextureA = "/Textures/tileA.png", tileTextureB = "/Textures/tileB.png"; 
 	private static AssetManager assetManager;
 	private static Node rootNode;
 	private Material spriteMaterial;
@@ -33,22 +34,26 @@ public class Tile {
 		GL11.glTexEnvf(GL14.GL_TEXTURE_FILTER_CONTROL, GL14.GL_TEXTURE_LOD_BIAS, -1);
 	}
 	
+	public float getX(){
+		return x + Tile.width/2;
+	}
+	
+	public float getZ(){
+		return z- Tile.length/2;
+	}
+	
 	public Texture getTexture(){
 		return texture;
 	}
 	
-	public float getX(){
-		return x;
-	}
-	
-	public float getZ(){
-		return z;
+	public Geometry getGeometry(){
+		return tile;
 	}
 	
 	public void createTile(float X, float Y ,float Z){
 		Quad quadShape = new Quad(width,length);
 		tile = new Geometry ("tile", quadShape);
-		setTexture("/Textures/tileA.png");
+		setTexture(tileTextureA);
 		spriteMaterial = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
 		spriteMaterial.setTexture("ColorMap", getTexture());
 		spriteMaterial.getAdditionalRenderState().setBlendMode(BlendMode.Alpha);

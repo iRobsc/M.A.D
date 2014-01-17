@@ -7,15 +7,19 @@ import com.robeli.terrain.Grid;
 public class Player {
 
 	private boolean side;
-	private Node unitNode = new Node();
-	private int unitsAmount = 50, lines, lineStart;
+	public int unitsAmount = 50, lines, lineStart, zLength, xLength;
 	public Units[][] units;
+	private AssetManager assetManager;
+	private Node rootNode, unitNode;
 	
-	public Player (boolean sides){
-		side = sides;
+	public Player (boolean side, AssetManager assetManager, Node rootNode, Node unitNode){
+		this.side = side;
+		this.assetManager = assetManager;
+		this.rootNode = rootNode;
+		this.unitNode = unitNode;
 	}
 	
-	public void createUnits(int gridXlength, int gridZlength, Grid grid, float gridHeight, AssetManager assetManager, Node rootNode){
+	public void createUnits(int gridXlength, int gridZlength, Grid grid, float gridHeight){
 		
 		if (side){
 			lines = 0;  // the variable lines is added to check if it's player 1 or player 2 position, if it's player 2 it starts on the other edge of the grid
@@ -32,22 +36,31 @@ public class Player {
 			int direction = (side? 1:-1);
 
 			units[i-currentColumn*gridZlength]
-					[(currentColumn*direction)+lineStart+(side?0:-1)]  //creating the units on different indexes depending on if it's player 1 or 2 
+					[currentColumn]
 					= new Testunit();
 			
 			units[i-currentColumn*gridZlength]
-					[(currentColumn*direction)+lineStart+(side?0:-1)].create   // placing the units on different locations depending on if it's player 1 or 2
+					[currentColumn].create   // placing the units on different locations depending on if it's player 1 or 2
 					(assetManager, rootNode, unitNode, grid.getGrid((currentColumn*direction)+lineStart+(side?0:-1),
 													   i-currentColumn*gridZlength), gridHeight, side);
 			
-			grid.getGrid((currentColumn*direction)+lineStart+(side?0:-1),    // adding current unit to the tile so we can handle the tile as the unit later
-						i-currentColumn*gridZlength).currentUnit = units[i-(currentColumn*gridZlength)]
-																			    [(currentColumn*direction)+lineStart+(side?0:-1)];
+			grid.getGrid((currentColumn*direction)+lineStart+(side?0:-1),    // adding the current unit to the tile so we can handle the tile as the unit later
+						i-currentColumn*gridZlength).currentUnit = units[i-currentColumn*gridZlength]
+																			    [currentColumn];
+			
+			units[i-currentColumn*gridZlength]
+					[(currentColumn*1)].currentTile = grid.getGrid((currentColumn*direction)+lineStart+(side?0:-1), // adding the current tile to the unit
+							i-currentColumn*gridZlength);
+			
 			if (side == false){
 				lines = lineStart - currentColumn*2; // decreasing the lines depending on what column the unit is on (*2 because of currentColumn adds +1 column each "i" 1-2=-1 insead of 1-1=0 to make it decrease in columns each time it has looped each column)
 			}
+
+			zLength = (int) Math.ceil(unitsAmount / gridZlength);
+			xLength = (int) Math.ceil(unitsAmount/zLength);
 		}
 		
 	}
-	
+
 }
+	

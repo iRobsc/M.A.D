@@ -33,4 +33,8 @@ public class Grid {
 		return grid[x][z];
 	}
 	
+	public Tile[][] getGrid(){
+		return grid;
+	}
+	
 }
