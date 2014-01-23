@@ -5,12 +5,13 @@ import com.jme3.scene.Node;
 import com.robeli.terrain.Tile;
 
 public class Testunit extends Units {
-	public float scaling = 0.3f;
+	public float scaling = 0.04f;
+	public int range = 0;
 	
 	@Override
 	public void create(AssetManager aM, Node rootNode, Node unitNode, Tile tile, float gridHeight, boolean side){
 		try{
-		createUnit("/Textures/metal.png", "/Models/mecha.obj", aM, unitNode, tile, scaling, gridHeight, side);
+		createUnit("/Textures/metal.png", "/Models/cube.obj", aM, unitNode, tile, scaling, gridHeight, side);
 		rootNode.attachChild(unitNode);
 		}
 		catch(Exception e){

@@ -10,6 +10,7 @@ import com.robeli.terrain.Grid;
 import com.robeli.terrain.Terrain;
 import com.robeli.terrain.Tile;
 import com.robeli.units.Player;
+import com.robeli.units.Units;
 
 public class Mainclass extends SimpleApplication {
 
@@ -18,6 +19,8 @@ public class Mainclass extends SimpleApplication {
 	private Node unitNode = new Node();
 	private String currentPhase = "movePhase";
 	private Phases phases;
+	private Grid grid;
+	private Units unit = new Units();
 	
 	public static void main(String[] args) {
 		Mainclass app = new Mainclass();
@@ -34,12 +37,14 @@ public class Mainclass extends SimpleApplication {
 		
 		ColorRGBA backgroundColor = new ColorRGBA(.8f, .85f, 1f, 1f);
 		viewPort.setBackgroundColor(backgroundColor);
+
 		//
 		
 		// Creating the grid
-		Grid grid = new Grid(gridXlength,gridZlength,gridHeight, rootNode, assetManager);
+		grid = new Grid(gridXlength,gridZlength,gridHeight, rootNode, assetManager);
 		grid.createGrid((Terrain.planeLength/2)-(gridXlength*Tile.width-Tile.width)/2, (Terrain.planeLength/2)-(gridZlength*Tile.length-Tile.length)/2);
 		//
+		
 		
 		// Creating the players on each side
 		Player player1 = new Player(true, assetManager, rootNode, unitNode);
@@ -48,10 +53,10 @@ public class Mainclass extends SimpleApplication {
 		Player player2 = new Player(false, assetManager, rootNode, unitNode);
 		player2.createUnits(gridXlength, gridZlength, grid, gridHeight);
 		
-		Player currentPlayer = player2;
+		Player currentPlayer = player1;
 		//
 		
-		// Initializing phaseclass
+		// Initializing phase class
 		phases = new Phases(cam, currentPlayer, inputManager, assetManager, rootNode, grid);
 		//
 		
@@ -69,11 +74,10 @@ public class Mainclass extends SimpleApplication {
 	
 	@Override
 	public void simpleUpdate(float tpf){
-		
 		phases.selectPhase(currentPhase);
 		
 		if (Mousepicking.moveUpdate){
-			phases.mousePicking.updateUnits();
+			Phases.mousePicking.updateUnits();
 		}
 		
 	}

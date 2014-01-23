@@ -28,12 +28,12 @@ public class Mousepicking {
 	private InputManager inputManager;
 	private Node rootNode;
 	private Player currentPlayer;
-	private Units selectedUnit;
 	private Grid grid;
 	private Geometry selectedGeo;
 	private Ray ray;
 	private List<Units> movingUnits;
 	private Quaternion rotation = new Quaternion();
+	public Units selectedUnit;
 	public boolean unitSelection = false, unitMovement = false;
 	public static boolean moveUpdate;
 	
@@ -63,8 +63,8 @@ public class Mousepicking {
 			
 			for(Units unit : movingUnits){
 				Vector3f unitPos = unit.getGeometry().getLocalTranslation();
-				float deltaZ =  unit.currentTile.getZ() - unitPos.z;
-				float deltaX =  unit.currentTile.getX() - unitPos.x;
+				float deltaZ = unit.currentTile.getZ() - unitPos.z;
+				float deltaX = unit.currentTile.getX() - unitPos.x;
 				double angle = Math.atan2(deltaX, deltaZ);
 				rotation.fromAngleAxis((float) angle, new Vector3f(0,1,0));
 				unit.getGeometry().setLocalRotation(rotation);
@@ -90,15 +90,18 @@ public class Mousepicking {
 
 			if (Math.abs(unitPos.x - unit.currentTile.getX()) <= Math.abs(moveX/Units.speed) &&
 				Math.abs(unitPos.z - unit.currentTile.getZ()) <= Math.abs(moveZ/Units.speed)){
-					unit.getGeometry().setLocalTranslation(unit.currentTile.getX(), unitPos.y, unit.currentTile.getZ());
-					rotation.fromAngleAxis(FastMath.PI/2, new Vector3f(0,1,0));
-					unit.getGeometry().setLocalRotation(rotation);
+					unit.getGeometry().setLocalTranslation
+					(unit.currentTile.getX(), unitPos.y, unit.currentTile.getZ());
+					
 					unit.currentTile.setTexture(Tile.tileTextureA);
 					movingUnits.remove(unit);
 					break;
 				}
 			
-			unit.getGeometry().setLocalTranslation(unitPos.x+moveX/Units.speed, unitPos.y, unitPos.z+moveZ/Units.speed);
+			unit.getGeometry().setLocalTranslation
+					(unitPos.x+moveX/Units.speed, 
+					unitPos.y, 
+					unitPos.z+moveZ/Units.speed);
 		}
 	}
 

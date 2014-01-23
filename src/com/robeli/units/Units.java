@@ -7,6 +7,8 @@ import com.jme3.scene.Geometry;
 import com.jme3.scene.Node;
 import com.jme3.scene.Spatial;
 import com.jme3.texture.Texture;
+import com.robeli.Mousepicking;
+import com.robeli.Phases;
 import com.robeli.terrain.Tile;
 
 public class Units{
@@ -14,7 +16,7 @@ public class Units{
 	public boolean selected;
 	public Tile currentTile, targetTile;
 	public double angle;
-	public static float speed = 200; // closer to 0 equals faster
+	public static float speed = 40; // closer to 0 equals faster
 	protected int tileRange, movementPoints;
 	protected float scale, x, z, damage, gridHeight;
 	private Spatial unitModel;
@@ -43,8 +45,12 @@ public class Units{
 		}
 	}
 	
-	public void moveToTile(){
-		
+	public void moveToTile(Units unit, Tile targetTile){
+		if (unit != null){
+			Mousepicking.moveUpdate = true;
+			Phases.mousePicking.selectedUnit = unit;
+			Phases.mousePicking.moveInitializing(targetTile);
+		}
 	}
 	
 	public void attack(Tile tile){

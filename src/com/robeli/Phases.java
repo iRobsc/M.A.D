@@ -9,7 +9,7 @@ import com.robeli.units.Player;
 
 public class Phases {
 		
-	public Mousepicking mousePicking;
+	public static Mousepicking mousePicking;
 		
 	public Phases(Camera camera, Player currentPlayer, InputManager inputManager, AssetManager assetManager, Node rootNode, Grid grid){
 		mousePicking = new Mousepicking(camera, currentPlayer, inputManager, assetManager, rootNode, grid);
