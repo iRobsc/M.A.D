@@ -37,12 +37,12 @@ public class Mainclass extends SimpleApplication {
 		
 		ColorRGBA backgroundColor = new ColorRGBA(.8f, .85f, 1f, 1f);
 		viewPort.setBackgroundColor(backgroundColor);
-
 		//
 		
 		// Creating the grid
 		grid = new Grid(gridXlength,gridZlength,gridHeight, rootNode, assetManager);
-		grid.createGrid((Terrain.planeLength/2)-(gridXlength*Tile.width-Tile.width)/2, (Terrain.planeLength/2)-(gridZlength*Tile.length-Tile.length)/2);
+		grid.createGrid((Terrain.planeLength/2)-(gridXlength*Tile.width-Tile.width)/2,
+						(Terrain.planeLength/2)-(gridZlength*Tile.length-Tile.length)/2);
 		//
 		
 		

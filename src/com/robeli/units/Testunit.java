@@ -2,6 +2,7 @@ package com.robeli.units;
 
 import com.jme3.asset.AssetManager;
 import com.jme3.scene.Node;
+import com.robeli.terrain.Grid;
 import com.robeli.terrain.Tile;
 
 public class Testunit extends Units {
@@ -9,9 +10,9 @@ public class Testunit extends Units {
 	public int range = 0;
 	
 	@Override
-	public void create(AssetManager aM, Node rootNode, Node unitNode, Tile tile, float gridHeight, boolean side){
+	public void create(AssetManager aM, Node rootNode, Node unitNode, Grid grid, Tile tile, float gridHeight, boolean side){
 		try{
-		createUnit("/Textures/metal.png", "/Models/cube.obj", aM, unitNode, tile, scaling, gridHeight, side);
+		createUnit("/Textures/metal.png", "/Models/cube.obj", aM, unitNode, grid, tile, scaling, gridHeight, side);
 		rootNode.attachChild(unitNode);
 		}
 		catch(Exception e){

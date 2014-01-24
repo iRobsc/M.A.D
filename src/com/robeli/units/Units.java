@@ -9,6 +9,7 @@ import com.jme3.scene.Spatial;
 import com.jme3.texture.Texture;
 import com.robeli.Mousepicking;
 import com.robeli.Phases;
+import com.robeli.terrain.Grid;
 import com.robeli.terrain.Tile;
 
 public class Units{
@@ -16,17 +17,20 @@ public class Units{
 	public boolean selected;
 	public Tile currentTile, targetTile;
 	public double angle;
-	public static float speed = 40; // closer to 0 equals faster
+	public static float speed = 1; // closer to 0 equals faster
 	protected int tileRange, movementPoints;
 	protected float scale, x, z, damage, gridHeight;
 	private Spatial unitModel;
 	private Texture unitStandardTexture, unitSelectedTexture;
+	public Grid unitRange;
+	private Grid fullGrid;
 	
-	public void create(AssetManager aM, Node rootNode, Node unitNode, Tile tile, float gridHeight, boolean side) {/* polymorphic method*/}
+	public void create(AssetManager aM, Node rootNode, Node unitNode, Grid grid, Tile tile, float gridHeight, boolean side) {/* polymorphic method*/}
 	
-	protected void createUnit(String texture, String model, AssetManager aM, Node unitNode, Tile tile, float scaling, float GridHeight, boolean side){
+	protected void createUnit(String texture, String model, AssetManager aM, Node unitNode, Grid grid, Tile tile, float scaling, float GridHeight, boolean side){
 		try{
 		gridHeight = GridHeight;
+		fullGrid = grid;
 		unitModel = aM.loadModel(model);
 		unitStandardTexture = aM.loadTexture(texture);
 		unitSelectedTexture = aM.loadTexture("/Textures/stonetexture.png");
@@ -55,6 +59,10 @@ public class Units{
 	
 	public void attack(Tile tile){
 		
+	}
+	
+	public void setRange(){
+		unitRange = null;
 	}
 	
 	public int getTileRange(){
