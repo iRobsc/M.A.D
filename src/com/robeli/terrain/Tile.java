@@ -16,12 +16,13 @@ import org.lwjgl.opengl.*;
 public class Tile {
 	
 	private float x, z;
-	
 	public static float width = 1.5f, length = 1.5f;
 	public Units currentUnit = null;
-	
 	public Texture texture;
-	public static String tileTextureA = "/Textures/tileA.png", tileTextureB = "/Textures/tileB.png"; 
+	public static String tileTextureA = "/Textures/tileA.png", 
+					     tileTextureB = "/Textures/tileB.png", 
+						 tileTextureC = "/Textures/tileC.png",
+						 tileTextureD = "/Textures/tileD.png"; 
 	private static AssetManager assetManager;
 	private static Node rootNode;
 	private Material spriteMaterial;

@@ -37,4 +37,12 @@ public class Grid {
 		return grid;
 	}
 	
+	public int getGridLength(){
+		return z;
+	}
+	
+	public int getGridWidth(){
+		return x;
+	}
+	
 }

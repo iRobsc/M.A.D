@@ -7,7 +7,7 @@ import com.robeli.terrain.Grid;
 public class Player {
 
 	private boolean side;
-	public int unitsAmount = 1, lines, lineStart;
+	public int unitsAmount = 10, lines, lineStart;
 	public Units[][] units;
 	private AssetManager assetManager;
 	private Node rootNode, unitNode;

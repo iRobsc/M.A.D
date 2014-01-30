@@ -17,7 +17,7 @@ public class Units{
 	public boolean selected;
 	public Tile currentTile, targetTile;
 	public double angle;
-	public static float speed = 1; // closer to 0 equals faster
+	public static float speed = 30; // closer to 0 equals faster (30 is a good speed)
 	protected int tileRange, movementPoints;
 	protected float scale, x, z, damage, gridHeight;
 	private Spatial unitModel;
@@ -61,8 +61,24 @@ public class Units{
 		
 	}
 	
-	public void setRange(){
-		unitRange = null;
+	public void setRange(String onOff){
+		if (onOff == "on"){
+			unitRange = fullGrid;
+			for(int x = 0; x < unitRange.getGridWidth(); x++){
+				for (int z = 0; z < unitRange.getGridLength(); z++)
+					if (unitRange.getGrid(x, z).currentUnit == null){
+						unitRange.getGrid(x, z).setTexture(Tile.tileTextureC);
+					} else {
+						unitRange.getGrid(x, z).setTexture(Tile.tileTextureD);
+					}
+			}
+		} else if (onOff == "off"){
+			unitRange = fullGrid;
+			for(int x = 0; x < unitRange.getGridWidth(); x++){
+				for (int z = 0; z < unitRange.getGridLength(); z++)
+				unitRange.getGrid(x, z).setTexture(Tile.tileTextureA);
+			}
+		}
 	}
 	
 	public int getTileRange(){

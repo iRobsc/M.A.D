@@ -70,6 +70,7 @@ public class Mousepicking {
 			}
 			
 			selectedUnit.setStandardTexture();
+			selectedUnit.setRange("off");
 			tile.setTexture(Tile.tileTextureB);
 			
 			selectedUnit = null;
@@ -91,8 +92,9 @@ public class Mousepicking {
 				Math.abs(unitPos.z - unit.currentTile.getZ()) <= Math.abs(moveZ/Units.speed)){
 					unit.getGeometry().setLocalTranslation
 					(unit.currentTile.getX(), unitPos.y, unit.currentTile.getZ());
-					
-					unit.currentTile.setTexture(Tile.tileTextureA);
+					if (unit.currentTile.getTexture().getName() != Tile.tileTextureD){
+						unit.currentTile.setTexture(Tile.tileTextureA);
+					}
 					movingUnits.remove(unit);
 					break;
 				}
@@ -132,6 +134,7 @@ public class Mousepicking {
 											}
 											selectedUnit = unit;
 											selectedUnit.selected = true;
+											selectedUnit.setRange("on");
 										}
 									}
 							}
