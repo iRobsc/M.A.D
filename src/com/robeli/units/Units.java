@@ -17,12 +17,12 @@ public class Units{
 	public boolean selected;
 	public Tile currentTile, targetTile;
 	public double angle;
-	public static float speed = 30; // closer to 0 equals faster (30 is a good speed)
+	public static float speed = 100; // closer to 0 equals faster (100 is a good speed)
 	protected int tileRange, movementPoints;
 	protected float scale, x, z, damage, gridHeight;
 	private Spatial unitModel;
 	private Texture unitStandardTexture, unitSelectedTexture;
-	public Grid unitRange;
+	public Tile[][] unitRange;
 	private Grid fullGrid;
 	
 	public void create(AssetManager aM, Node rootNode, Node unitNode, Grid grid, Tile tile, float gridHeight, boolean side) {/* polymorphic method*/}
@@ -63,20 +63,26 @@ public class Units{
 	
 	public void setRange(String onOff){
 		if (onOff == "on"){
-			unitRange = fullGrid;
-			for(int x = 0; x < unitRange.getGridWidth(); x++){
-				for (int z = 0; z < unitRange.getGridLength(); z++)
-					if (unitRange.getGrid(x, z).currentUnit == null){
-						unitRange.getGrid(x, z).setTexture(Tile.tileTextureC);
+			unitRange = new Tile[3][3];
+			unitRange[0][0] = fullGrid.getGrid(currentTile.xCoord,currentTile.zCoord);
+			unitRange[0][1] = fullGrid.getGrid(currentTile.xCoord,currentTile.zCoord+1);
+			unitRange[1][0] = fullGrid.getGrid(currentTile.xCoord+1,currentTile.zCoord);
+			unitRange[1][1] = fullGrid.getGrid(currentTile.xCoord+1,currentTile.zCoord+1);
+			
+			
+			for(int x = 0; x < 2; x++){
+				for (int z = 0; z < 2; z++)
+					if (unitRange[x][z].currentUnit == null){
+						unitRange[x][z].setTexture(Tile.tileTextureC);
 					} else {
-						unitRange.getGrid(x, z).setTexture(Tile.tileTextureD);
+						unitRange[x][z].setTexture(Tile.tileTextureD);
 					}
 			}
 		} else if (onOff == "off"){
-			unitRange = fullGrid;
-			for(int x = 0; x < unitRange.getGridWidth(); x++){
-				for (int z = 0; z < unitRange.getGridLength(); z++)
-				unitRange.getGrid(x, z).setTexture(Tile.tileTextureA);
+			unitRange = fullGrid.getGrid();
+			for(int x = 0; x < fullGrid.getGridWidth(); x++){
+				for (int z = 0; z < fullGrid.getGridLength(); z++)
+					unitRange[x][z].setTexture(Tile.tileTextureA);
 			}
 		}
 	}

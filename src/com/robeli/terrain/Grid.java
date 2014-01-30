@@ -25,6 +25,7 @@ public class Grid {
 			for(int Z = 0; Z < z; Z++){
 				grid[X][Z] = new Tile(rootNode, assetManager);
 				grid[X][Z].createTile(X*Tile.width + xPos, height, Z*Tile.length + zPos);
+				grid[X][Z].setCoords(X,Z);
 			}
 		}
 	}
@@ -35,6 +36,10 @@ public class Grid {
 	
 	public Tile[][] getGrid(){
 		return grid;
+	}
+	
+	public void addTile(int x, int z, Tile[][] fullGrid){
+		grid[x][z] = fullGrid[x][z];
 	}
 	
 	public int getGridLength(){

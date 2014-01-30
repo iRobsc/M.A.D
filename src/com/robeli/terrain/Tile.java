@@ -16,6 +16,7 @@ import org.lwjgl.opengl.*;
 public class Tile {
 	
 	private float x, z;
+	public int xCoord, zCoord;
 	public static float width = 1.5f, length = 1.5f;
 	public Units currentUnit = null;
 	public Texture texture;
@@ -40,7 +41,7 @@ public class Tile {
 	}
 	
 	public float getZ(){
-		return z- Tile.length/2;
+		return z - Tile.length/2;
 	}
 	
 	public Texture getTexture(){
@@ -49,6 +50,11 @@ public class Tile {
 	
 	public Geometry getGeometry(){
 		return tile;
+	}
+	
+	public void setCoords(int X, int Z){
+		xCoord = X;
+		zCoord = Z;
 	}
 	
 	public void createTile(float X, float Y ,float Z){
@@ -68,7 +74,7 @@ public class Tile {
 		tile.rotate(-90*FastMath.DEG_TO_RAD, 0, 0);
 		tile.setQueueBucket(Bucket.Transparent);
 		tile.setMaterial(spriteMaterial);
-
+		
 		rootNode.attachChild(tile);
 	}
 	
